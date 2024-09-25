@@ -660,6 +660,114 @@ if (int.TryParse(input, out choose) && choose > 0 && choose < 3)
                 if (!(string.IsNullOrEmpty(password)))
                 {
                     Users.SignUp(name, surname, age, email, password, UserRole.User);
+
+                    ArrayList User = Users.GetUsers();
+                    foreach(User_Base AllUser in User) 
+                    {
+                    Option:
+                        Console.WriteLine("\n\nSelect option:\n" +
+                                             "1.Update profile\n" +
+                                             "===================");
+                        string secim = Console.ReadLine();
+                        int Secim;
+
+                        if (int.TryParse(secim, out Secim) && Secim > 0 && Secim < 2)
+                        {
+                            Console.Clear();
+                            password:
+                            Console.Write("Enter your password: ");
+                            string UpdateProp = Console.ReadLine();
+
+                            if (!(string.IsNullOrEmpty(UpdateProp)) && UpdateProp == AllUser.Password)
+                            {
+
+                                Console.Clear();
+                                bool matchFound = false;
+
+
+                                foreach (User_Base users in User)
+                                {
+
+                                    if (password == users.Password)
+                                    {
+                                        matchFound = true;
+
+                                        Console.WriteLine(
+                                                          $"Your info:\n" +
+                                                          $"Name: {users.Name},\n" +
+                                                          $"Surname: {users.Surname},\n" +
+                                                          $"Age: {users.Age},\n" +
+                                                          $"Email: {users.Email},\n" +
+                                                          $"Password: {users.Password},\n" +
+                                                          $"Role: {users.UserRole}");
+                                        break;
+                                    }
+
+                                }
+                            PropID:
+                                Console.Write("\nEnter the property ID: ");
+                                string OldPropertyID = Console.ReadLine();
+                                int OldProperty;
+
+                                if (int.TryParse(OldPropertyID, out OldProperty) && OldProperty < 6)
+                                {
+                                    Console.Clear();
+                                    
+                                    Console.WriteLine("Enter new property");
+                                    string newProperty = Console.ReadLine();
+                                    Console.Clear();
+                                    Users.UpdateProfil(UpdateProp, OldProperty, newProperty);
+                                    bool matchFound1 = false;
+
+
+                                    foreach (User_Base users in User)
+                                    {
+
+                                        if (password == users.Password)
+                                        {
+                                            matchFound1 = true;
+
+                                            Console.WriteLine(
+                                                              $"Your info:\n" +
+                                                              $"Name: {users.Name},\n" +
+                                                              $"Surname: {users.Surname},\n" +
+                                                              $"Age: {users.Age},\n" +
+                                                              $"Email: {users.Email},\n" +
+                                                              $"Password: {users.Password},\n" +
+                                                              $"Role: {users.UserRole}");
+                                            break;
+                                        }
+
+                                    }
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Invalid ID!");
+                                    Thread.Sleep(1000);
+                                    Console.Clear();
+                                    goto PropID;
+                                }
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Invalid password!");
+                                Thread.Sleep(1000);
+                                Console.Clear();
+                                goto password;
+                            }
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Invalid syntax!");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                            goto Option;
+                        }
+
+                    }
                 }
                 else
                 {

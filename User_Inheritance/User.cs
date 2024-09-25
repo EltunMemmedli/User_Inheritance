@@ -10,6 +10,9 @@ namespace User_Inheritance
     {
         public User(string name, string surname, int age, string email, string password, UserRole userRole) : base(name, surname, age, email, password, userRole)
         {
+
+
+
         }
     }
 }
