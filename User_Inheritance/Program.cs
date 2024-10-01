@@ -279,65 +279,75 @@ if (int.TryParse(input, out choose) && choose > 0 && choose < 3)
                                     Sifre:
                                         Console.Write("Enter the user's password: ");
                                         string OldPassword = Console.ReadLine();
+                                        bool valid_1 = false;
 
                                         foreach (User_Base Password in allUsers)
                                         {
-                                            if (Password.UserRole == UserRole.User)
+                                            if (Password.UserRole == UserRole.User && OldPassword == Password.Password)
                                             {
-                                                if (OldPassword == Password.Password)
+                                                valid_1 = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if (valid_1)
+                                        {
+                                            valid_1 = true;
+                                            Console.Clear();
+                                            Console.WriteLine("Enter user's new name");
+                                            string name = Console.ReadLine();
+                                            Console.Clear();
+
+                                            Console.WriteLine("Enter user's new surname");
+                                            string surname = Console.ReadLine();
+                                            Console.Clear();
+
+                                        Age1:
+                                            Console.WriteLine("Enter user's new age");
+                                            string age = Console.ReadLine();
+                                            int Age;
+
+                                            if (int.TryParse(age, out Age) && Age > 0)
+                                            {
+                                                Console.Clear();
+                                            Eamil1:
+                                                Console.WriteLine("Enter user's new email");
+                                                string Email = Console.ReadLine();
+                                                bool ismatch = regex.IsMatch(Email);
+
+                                                if (!(string.IsNullOrEmpty(Email)) && ismatch)
                                                 {
                                                     Console.Clear();
-                                                    Console.WriteLine("Enter user's new name");
-                                                    string name = Console.ReadLine();
-                                                    Console.Clear();
+                                                Password1:
+                                                    Console.Write("Enter user's new password: ");
+                                                    string Password1 = Console.ReadLine();
 
-                                                    Console.WriteLine("Enter user's new surname");
-                                                    string surname = Console.ReadLine();
-                                                    Console.Clear();
-
-                                                Age1:
-                                                    Console.WriteLine("Enter user's new age");
-                                                    string age = Console.ReadLine();
-                                                    int Age;
-
-                                                    if (int.TryParse(age, out Age) && Age > 0)
+                                                    if (!(string.IsNullOrEmpty(Password1)))
                                                     {
                                                         Console.Clear();
-                                                    Eamil1:
-                                                        Console.WriteLine("Enter user's new email");
-                                                        string Email = Console.ReadLine();
-                                                        bool ismatch = regex.IsMatch(Email);
+                                                        Users.UpdatedUser(Userid, name, surname, Age, Email, Password1, UserRole.User);
 
-                                                        if (!(string.IsNullOrEmpty(Email)) && ismatch)
+                                                    Kec_1:
+                                                        Thread.Sleep(2000);
+                                                        Console.WriteLine("\nPress 'f' to return to the start or any other key to exit...");
+
+                                                        string Kec_1 = Console.ReadLine();
+
+                                                        if (Kec_1.ToLower() == "f")
                                                         {
                                                             Console.Clear();
-                                                        Password1:
-                                                            Console.Write("Enter user's new password: ");
-                                                            string Password1 = Console.ReadLine();
-
-                                                            if (!(string.IsNullOrEmpty(Password1)))
-                                                            {
-                                                                Console.Clear();
-                                                                Users.UpdatedUser(Userid, name, surname, Age, Email, Password1, UserRole.User);
-                                                                return;
-                                                            }
-                                                            else
-                                                            {
-                                                                Console.Clear();
-                                                                Console.WriteLine("Invalid syntax!");
-                                                                Thread.Sleep(1000);
-                                                                Console.Clear();
-                                                                goto Password1;
-                                                            }
+                                                            goto Secim;
                                                         }
                                                         else
                                                         {
                                                             Console.Clear();
-                                                            Console.WriteLine("Invalid syntax!");
-                                                            Thread.Sleep(1000);
-                                                            Console.Clear();
-                                                            goto Eamil1;
+                                                            Console.WriteLine("Duzgun duymeye basdiginizdan emin olun!");
+
+
+                                                            goto Kec;
                                                         }
+
+
                                                     }
                                                     else
                                                     {
@@ -345,7 +355,7 @@ if (int.TryParse(input, out choose) && choose > 0 && choose < 3)
                                                         Console.WriteLine("Invalid syntax!");
                                                         Thread.Sleep(1000);
                                                         Console.Clear();
-                                                        goto Age1;
+                                                        goto Password1;
                                                     }
                                                 }
                                                 else
@@ -354,11 +364,27 @@ if (int.TryParse(input, out choose) && choose > 0 && choose < 3)
                                                     Console.WriteLine("Invalid syntax!");
                                                     Thread.Sleep(1000);
                                                     Console.Clear();
-                                                    goto Sifre;
+                                                    goto Eamil1;
                                                 }
+                                            }
+                                            else
+                                            {
+                                                Console.Clear();
+                                                Console.WriteLine("Invalid syntax!");
+                                                Thread.Sleep(1000);
+                                                Console.Clear();
+                                                goto Age1;
                                             }
                                         }
 
+                                        else
+                                        {
+                                            Console.Clear();
+                                            Console.WriteLine("Invalid syntax! Please try again.");
+                                            Thread.Sleep(1000);
+                                            Console.Clear();
+                                            goto Sifre;
+                                        }
                                     }
                                     else
                                     {
